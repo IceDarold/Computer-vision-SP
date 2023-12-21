@@ -19,13 +19,13 @@ namespace FaceMovement
                 if (bone.bone_object != null) 
                     Debug.LogAssertion($"There is no object with name \"{bone.name}\" on the scene");
             }
+            FaceDataReceiver.MakeConnectionWithServer();
         }
         void Update ()
         {
             var data = FaceDataReceiver.GetData();
             if (data != null)
             {
-                Debug.Log("Succes");
                 var bonsesOffset = FaceDataReceiver.GetBonesOffset(FaceForms.FACEMESH_RIGHT_EYEBROW, data);
                 foreach (BoneData bone in bonesData.bones)
                 {
@@ -43,5 +43,12 @@ namespace FaceMovement
                 }
             }
         }
-     }
+
+        private void OnApplicationQuit()
+        {
+            FaceDataReceiver.CloseConnection();
+            Application.Quit();
+        }
+
+    }
 }

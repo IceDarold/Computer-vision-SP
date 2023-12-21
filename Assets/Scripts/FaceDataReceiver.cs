@@ -5,37 +5,54 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 using FaceMovement.Data;
+using System.Net.Sockets;
+using System.Text;
+using System.Linq;
 
 namespace FaceMovement
 {
     public class FaceDataReceiver
     {
+        static private TcpClient _client;
+        static private NetworkStream _stream;
+        static public void MakeConnectionWithServer()
+        {
+            // Устанавливаем IP-адрес и порт сервера
+            string ipAddress = "Storm";
+            int port = 8080;
+
+            // Создаем объект TcpClient для подключения к серверу
+            _client = new TcpClient(ipAddress, port);
+            Debug.Log($"Подключено к серверу {ipAddress}:{port}");
+
+            // Получаем поток для чтения и записи данных
+            _stream = _client.GetStream();
+
+        }
         static public List<string> GetData()
         {
-            string path = "D:/data_face.txt";
-            List<string> data = new List<string>();
-            try
-            {
-                string[] lines = File.ReadAllLines(path);
+            // Чтение ответа от сервера
+            byte[] data = new byte[1024 * 32];
+            int bytesRead = _stream.Read(data, 0, data.Length);
+            string responseMessage = Encoding.UTF8.GetString(data, 0, bytesRead);
+            Debug.Log($"Получен ответ от сервера");
+            Debug.Log($"length: {responseMessage.Length}");
+            List<string> result = responseMessage.Split('_').ToList();
+            Debug.Log(result.Count);
+            // Закрытие соединения с сервером
+            return result;
 
-                foreach (string line in lines)
-                {
-                    data.Add(line);
-                }
-                return data;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Reading file error: {ex.Message}");
-            }
-            return null;
         }
-
+        static public void CloseConnection()
+        {
+            _client.Close();
+        }
         static public Dictionary<Bone, (double, double, double)> GetBonesOffset(Dictionary<(int, int), Bone> faceForm, List<string> data)
         {
             Dictionary<Bone, (double, double, double)> offsets = new Dictionary<Bone, (double, double, double)>();
             foreach (var connection in faceForm.Keys)
             {
+                Debug.Log(data.Count);
                 string el = data[connection.Item1];
                 var values = el.Split(",");
                 var x = ParseCoordinate(values[0]);

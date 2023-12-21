@@ -10,10 +10,12 @@ namespace FaceMovement.Data
         Eyebrow_3_R,
         Eyebrow_2_R,
         Eyebrow_1_R,
+        Eyebrow_0_R,
         Eyebrow_4_L,
         Eyebrow_3_L,
         Eyebrow_2_L,
-        Eyebrow_1_L
+        Eyebrow_1_L,
+        Eyebrow_0_L
     }
     [System.Serializable]
     public class BoneData
@@ -43,7 +45,8 @@ namespace FaceMovement.Data
             { (46, 53), Bone.Eyebrow_4_R },
             { (53, 52), Bone.Eyebrow_3_R },
             { (52, 65), Bone.Eyebrow_2_R },
-            { (65, 55), Bone.Eyebrow_1_R }
+            { (65, 55), Bone.Eyebrow_1_R },
+            { (65, 55), Bone.Eyebrow_0_R }
 };
 
         static public Dictionary<(int, int), Bone> FACEMESH_LEFT_EYEBROW_DICT = new Dictionary<(int, int), Bone>()
