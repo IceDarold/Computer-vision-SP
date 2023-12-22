@@ -13,27 +13,30 @@ MonoBehaviour:
   m_Name: Snow_BonesData
   m_EditorClassIdentifier: 
   _bones:
-  - _name: Eyebrow_Skin1.L
+  - _name: Eyebrow1.L
     _boneType: 7
     bone_object: {fileID: 0}
-  - _name: Eyebrow_Skin2.L
+  - _name: Eyebrow2.L
     _boneType: 6
     bone_object: {fileID: 0}
-  - _name: Eyebrow_Skin3.L
+  - _name: Eyebrow3.L
     _boneType: 5
     bone_object: {fileID: 0}
-  - _name: Eyebrow_Skin4.L
+  - _name: Eyebrow4.L
     _boneType: 4
     bone_object: {fileID: 0}
-  - _name: Eyebrow_Skin1.R
+  - _name: Eyebrow1.R
     _boneType: 3
     bone_object: {fileID: 0}
-  - _name: Eyebrow_Skin2.R
+  - _name: Eyebrow2.R
     _boneType: 2
     bone_object: {fileID: 0}
-  - _name: Eyebrow_Skin3.R
+  - _name: Eyebrow3.R
     _boneType: 1
     bone_object: {fileID: 0}
-  - _name: Eyebrow_Skin4.R
+  - _name: Eyebrow4.R
+    _boneType: 0
+    bone_object: {fileID: 0}
+  - _name: Eyebrow4.R
     _boneType: 0
     bone_object: {fileID: 0}

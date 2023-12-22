@@ -29,16 +29,42 @@ namespace FaceMovement
             _stream = _client.GetStream();
 
         }
+
+        static public List<(double, double, double)> SeparateDataToCoodinations(List<string> data)
+        {
+            List<(double, double, double)> result = new List<(double, double, double)> ();
+            foreach (string s in data) 
+            {
+                var coordinations = s.Split(",");
+                (double, double, double) local_res;
+                //foreach (var item in coordinations)
+                //{
+                //    Debug.Log(item);
+                //}
+                try
+                {
+                    local_res.Item1 = double.Parse(coordinations[0]);
+                    local_res.Item2 = double.Parse(coordinations[1]);
+                    local_res.Item3 = double.Parse(coordinations[2]);
+                    result.Add(local_res);
+                }
+                catch
+                {
+                    //Debug.Log($"{s}");
+                }
+            }
+            return result;
+        }
         static public List<string> GetData()
         {
             // Чтение ответа от сервера
             byte[] data = new byte[1024 * 32];
             int bytesRead = _stream.Read(data, 0, data.Length);
             string responseMessage = Encoding.UTF8.GetString(data, 0, bytesRead);
-            Debug.Log($"Получен ответ от сервера");
-            Debug.Log($"length: {responseMessage.Length}");
+            //Debug.Log($"Получен ответ от сервера");
+            //Debug.Log($"length: {responseMessage.Length}");
             List<string> result = responseMessage.Split('_').ToList();
-            Debug.Log(result.Count);
+            //Debug.Log(result.Count);
             // Закрытие соединения с сервером
             return result;
 
